@@ -1035,13 +1035,8 @@ module Sinatra
 
     # Define an event handler for GET requests.
     def get(path, options={}, &b)
-      if path.is_a? Array
-        path.each do |p|
-          event(:get, p, options, &b)
-        end
-      else
-        event(:get, path, options, &b)
-      end
+      path = [ path ] unless path.is_a? Array
+      path.each { |p| event(:get, p, options, &b) }
     end
 
     # Define an event handler for POST requests.
